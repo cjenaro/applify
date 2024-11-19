@@ -24,6 +24,9 @@
   </head>
 
   <body>
+    <header class="p-4 flex items-center">
+      <%= button_to "Sign out", session_path, class: "px-4 py-2 rounded bg-indigo-700 text-white hover:bg-indigo-600", method: :delete if authenticated? %>
+    </header>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
