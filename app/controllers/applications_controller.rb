@@ -1,9 +1,10 @@
 class ApplicationsController < ApplicationController
+  before_action :require_authentication
   before_action :set_application, only: %i[ show edit update destroy ]
 
   # GET /applications or /applications.json
   def index
-    @applications = Application.all
+    @applications = Current.user.applications
   end
 
   # GET /applications/1 or /applications/1.json
@@ -21,7 +22,7 @@ class ApplicationsController < ApplicationController
 
   # POST /applications or /applications.json
   def create
-    @application = Application.new(application_params)
+    @application = Current.user.applications.build(application_params)
 
     respond_to do |format|
       if @application.save
