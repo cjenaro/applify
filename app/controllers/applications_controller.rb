@@ -26,7 +26,7 @@ class ApplicationsController < ApplicationController
 
     respond_to do |format|
       if @application.save
-        format.html { redirect_to @application, notice: "Application was successfully created." }
+        format.html { redirect_to applications_path, notice: "Application was successfully created." }
         format.json { render :show, status: :created, location: @application }
       else
         format.html { render :new, status: :unprocessable_entity }

@@ -1,6 +1,6 @@
 <turbo-frame id="application-form">
   <div data-controller="application-form">
-    <%= form_with(model: application, class: "block ") do |form| %>
+    <%= form_with(model: application, class: "block", data: { turbo: false }) do |form| %>
       <% if application.errors.any? %>
         <div
           id="error_explanation"
@@ -126,10 +126,23 @@
           "
         >
           <%= form.label :status, class: "block text-xs font-medium text-gray-900 capitalize" %>
-          <%= form.text_field :status,
-                          class:
-                            " block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6",
-                          placeholder: "Founding Engineer" %>
+          <%= form.select :status,
+                      [
+                        %w[Pending pending],
+                        ["Under Review", "under_review"],
+                        ["Interview Scheduled", "interview_scheduled"],
+                        %w[Interviewed interviewed],
+                        ["Offer Extended", "offer_extended"],
+                        ["Offer Accepted", "offer_accepted"],
+                        ["Offer Declined", "offer_declined"],
+                        %w[Rejected rejected],
+                        %w[Withdrawn withdrawn],
+                      ],
+                      {},
+                      {
+                        class:
+                          "block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6",
+                      } %>
         </div>
       </div>
 
