@@ -63,3 +63,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "nokogiri", "~> 1.16"
+
+gem "ruby-openai", "~> 7.3"

@@ -1,58 +1,145 @@
-<%= form_with(model: application, class: "contents") do |form| %>
-  <% if application.errors.any? %>
-    <div
-      id="error_explanation"
-      class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3"
-    >
-      <h2><%= pluralize(application.errors.count, "error") %>
-        prohibited this application from being saved:</h2>
+<turbo-frame id="application-form">
+  <div data-controller="application-form">
+    <%= form_with(model: application, class: "block ") do |form| %>
+      <% if application.errors.any? %>
+        <div
+          id="error_explanation"
+          class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3"
+        >
+          <h2><%= pluralize(application.errors.count, "error") %>
+            prohibited this application from being saved:</h2>
 
-      <ul>
-        <% application.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% application.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="my-5">
-    <%= form.label :position %>
-    <%= form.text_field :position,
-                    class:
-                      "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <input
+        data-application-form-target="disabler"
+        type="hidden"
+        class="hidden peer"
+      />
+      <div
+        class="
+          isolate -space-y-px rounded-md shadow-sm mb-6 after:absolute relative
+          after:inset-0 peer-disabled:after:animate-pulse
+          peer-disabled:after:bg-gray-400/20 after:pointer-events-none
+          peer-disabled:pointer-events-none
+        "
+      >
+        <div
+          class="
+            relative rounded-md rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset
+            ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600
+          "
+        >
+          <%= form.label :position_url,
+                     class: "block text-xs font-medium text-gray-900 capitalize" %>
+          <%= form.url_field :position_url,
+                         data: {
+                           "application-form-target": "url",
+                           action: "input->application-form#showAIBtn:once",
+                         },
+                         class:
+                           " block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6",
+                         placeholder: "https://applify.com/careers/iasdJ123" %>
+          <button
+            data-application-form-target="aibtn"
+            data-action="click->application-form#handleUrlInput"
+            class="
+              p-1 bg-gray-50 dark:bg-gray-900 hidden border rounded absolute right-1 bottom-1
+              shadow-sm
+            "
+            title="Fill form with AI"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="
+            relative px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10
+            focus-within:ring-2 focus-within:ring-indigo-600
+          "
+        >
+          <%= form.label :position,
+                     class: "block text-xs font-medium text-gray-900 capitalize" %>
+          <%= form.text_field :position,
+                          data: {
+                            "application-form-target": "position",
+                          },
+                          class:
+                            " block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6",
+                          placeholder: "Founding Engineer" %>
+        </div>
+        <div
+          class="
+            relative px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10
+            focus-within:ring-2 focus-within:ring-indigo-600
+          "
+        >
+          <%= form.label :company, class: "block text-xs font-medium text-gray-900 capitalize" %>
+          <%= form.text_field :company,
+                          data: {
+                            "application-form-target": "company",
+                          },
+                          class:
+                            " block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6",
+                          placeholder: "SpaceX" %>
+        </div>
+        <div
+          class="
+            relative px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10
+            focus-within:ring-2 focus-within:ring-indigo-600
+          "
+        >
+          <%= form.label :description,
+                     class: "block text-xs font-medium text-gray-900 capitalize" %>
+          <%= form.text_area :description,
+                         rows: 10,
+                         data: {
+                           "application-form-target": "description",
+                         },
+                         class:
+                           " block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6",
+                         placeholder: "In this position..." %>
+        </div>
+        <div
+          class="
+            relative rounded-md rounded-t-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset
+            ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600
+          "
+        >
+          <%= form.label :status, class: "block text-xs font-medium text-gray-900 capitalize" %>
+          <%= form.text_field :status,
+                          class:
+                            " block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6",
+                          placeholder: "Founding Engineer" %>
+        </div>
+      </div>
+
+      <div class="inline">
+        <%= form.submit class:
+                      "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-400 disabled:cursor-not-allowed",
+                    data: {
+                      "application-form-target": "submit",
+                    } %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="my-5">
-    <%= form.label :company %>
-    <%= form.text_field :company,
-                    class:
-                      "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :position_url %>
-    <%= form.text_field :position_url,
-                    class:
-                      "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :description %>
-    <%= form.textarea :description,
-                  rows: 4,
-                  class:
-                    "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :status %>
-    <%= form.text_field :status,
-                    class:
-                      "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class:
-                  "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-<% end %>
+</turbo-frame>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post "job_scraper/scrape", to: "job_scraper#scrape", as: :scrape_job
   resource :session, only: [:new, :create, :destroy]
   resource :registration, only: [:new, :create, :destroy]
   resources :passwords, param: :token
