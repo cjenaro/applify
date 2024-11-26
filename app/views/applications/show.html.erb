@@ -1,4 +1,22 @@
-<div class="mx-auto md:w-2/3 w-full flex">
+<% content_for :header do %>
+  <div>
+    <h1 class="text-3xl font-bold tracking-tight text-white"><%= @application.position %></h1>
+    <p class="text-white/80"><%= @application.company %></p>
+  </div>
+  <div class="flex gap-4 items-center">
+    <%= link_to "Back to applications",
+    applications_path,
+    class:
+      "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium text-black" %>
+  </div>
+<% end %>
+
+<% content_for :title do %>
+  Applications |
+  <%= @application.position %>
+<% end %>
+
+<div class="mx-auto w-full flex">
   <div class="mx-auto">
     <% if notice.present? %>
       <p
@@ -10,18 +28,5 @@
     <% end %>
 
     <%= render @application %>
-
-    <%= link_to "Edit this application",
-    edit_application_path(@application),
-    class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to applications",
-    applications_path,
-    class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this application",
-      @application,
-      method: :delete,
-      class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
   </div>
 </div>
